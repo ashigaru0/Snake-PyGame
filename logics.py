@@ -9,7 +9,7 @@ class snake_logics:
         self.thrgh_walls = thrgh_walls
         self.thrgh_self = thrgh_self
 
-        self.body = [(0, 0), (1, 0), (2, 0), (3, 0), (4, 0), (5, 0)]
+        self.body = [(0, 0), (0, 1)]
         self.apple = None
         self.direction = 0  # 0 - DOWN; 1 - RIGHT; 2 - UP; 3 - LEFT
         self.old_direction = 0

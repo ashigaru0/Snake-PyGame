@@ -4,7 +4,8 @@ import pygame
 class board:
     def __init__(self, size_board=(8, 8), size_cell=100):
         self.size_cell = size_cell
-        self.size_screen = (self.size_cell * size_board[0], self.size_cell * size_board[1])
+        self.radius = size_cell // 2
+        self.size_screen = (size_cell * size_board[0], size_cell * size_board[1])
         self.size_board = size_board
 
         self.screen = pygame.display.set_mode(self.size_screen)
@@ -24,16 +25,15 @@ class board:
 
     def render(self):
         self.screen.fill((0, 0, 0))
-        for w in range(self.size_board[0]):
-            for h in range(self.size_board[1]):
-                x, y = w * (self.size_screen[0] // self.size_board[0]) + self.size_cell // 2, \
-                       h * (self.size_screen[1] // self.size_board[1]) + self.size_cell // 2
+        for h, data in enumerate(self.board):
+            for w, color in enumerate(data):
+                x, y = w * self.size_cell + self.radius, \
+                       h * self.size_cell + self.radius
 
                 if self.board[h][w] == 1:
-                    pygame.draw.circle(self.screen, (255, 255, 255), (x, y), self.size_cell // 2)
+                    pygame.draw.circle(self.screen, (255, 255, 255), (x, y), self.radius)
                 elif self.board[h][w] == 2:
-                    pygame.draw.circle(self.screen, (0, 255, 0), (x, y), self.size_cell // 2)
+                    pygame.draw.circle(self.screen, (0, 255, 0), (x, y), self.radius)
                 elif self.board[h][w] == 3:
-                    pygame.draw.circle(self.screen, (255, 0, 0), (x, y), self.size_cell // 2)
-
+                    pygame.draw.circle(self.screen, (255, 0, 0), (x, y), self.radius)
         pygame.display.flip()
