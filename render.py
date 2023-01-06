@@ -30,10 +30,10 @@ class board:
                 x, y = w * self.size_cell + self.radius, \
                        h * self.size_cell + self.radius
 
-                if self.board[h][w] == 1:
+                if color == 1:
                     pygame.draw.circle(self.screen, (255, 255, 255), (x, y), self.radius)
-                elif self.board[h][w] == 2:
+                elif color == 2:
                     pygame.draw.circle(self.screen, (0, 255, 0), (x, y), self.radius)
-                elif self.board[h][w] == 3:
+                elif color == 3:
                     pygame.draw.circle(self.screen, (255, 0, 0), (x, y), self.radius)
         pygame.display.flip()
