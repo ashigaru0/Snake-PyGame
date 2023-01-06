@@ -11,6 +11,9 @@ if __name__ == '__main__':
     game = snake_logics(size=size, thrgh_walls=False, thrgh_self=False)
     # thrgh_walls - возможность проходить сквозь стены
     # thrgh_self - возможность проходить сквозь себя
+    # acceleration - изменение скорости в процентах
+    # speed - начальная скорость
+    # control_relatively_head - 2 режима управления(0 - глобальный; 1 - относительно головы)
 
     brd = board(size_board=size, size_cell=50)
 

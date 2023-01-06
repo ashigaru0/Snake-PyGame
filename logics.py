@@ -3,13 +3,20 @@ import random
 
 
 class snake_logics:
-    def __init__(self, size=(8, 8), thrgh_walls=False, thrgh_self=False):
+    def __init__(self, size=(8, 8), thrgh_walls=False, thrgh_self=False,
+                 speed=500.0, acceleration=0, control_relatively_head=1):
         self.run = True
         self.size = size
+
+        self.speed = speed
+        self.acceleration = acceleration
+
+        self.control_relatively_head = control_relatively_head
+
         self.thrgh_walls = thrgh_walls
         self.thrgh_self = thrgh_self
 
-        self.body = [(0, 0), (0, 1)]
+        self.body = [(0, 0), (0, 1), (0, 2)]
         self.apple = None
         self.direction = 0  # 0 - DOWN; 1 - RIGHT; 2 - UP; 3 - LEFT
         self.old_direction = 0
@@ -17,10 +24,16 @@ class snake_logics:
         self.move_event = pygame.USEREVENT + 1  # Ивент движения
         self.add_apple_event = pygame.USEREVENT + 2  # Ивент создания яблока
 
-        pygame.time.set_timer(self.move_event, 500)  # Таймер на ивент движения
+        pygame.time.set_timer(self.move_event, int(speed))  # Таймер на ивент движения
         pygame.time.set_timer(self.add_apple_event, 1000)  # Таймер на ивент создания яблока
 
     def change_direction(self, key):
+        if not self.control_relatively_head:
+            self.change_direction_global(key)
+        else:
+            self.change_direction_relatively(key)
+
+    def change_direction_global(self, key):
         if key == pygame.K_s and self.old_direction != 2:
             self.direction = 0
         elif key == pygame.K_d and self.old_direction != 3:
@@ -29,6 +42,28 @@ class snake_logics:
             self.direction = 2
         elif key == pygame.K_a and self.old_direction != 1:
             self.direction = 3
+
+    def change_direction_relatively(self, key):
+        if self.direction == 0:
+            if key == pygame.K_d:
+                self.direction = 3
+            elif key == pygame.K_a:
+                self.direction = 1
+        elif self.direction == 1:
+            if key == pygame.K_d:
+                self.direction = 0
+            elif key == pygame.K_a:
+                self.direction = 2
+        elif self.direction == 2:
+            if key == pygame.K_d:
+                self.direction = 1
+            elif key == pygame.K_a:
+                self.direction = 3
+        elif self.direction == 3:
+            if key == pygame.K_d:
+                self.direction = 2
+            elif key == pygame.K_a:
+                self.direction = 0
 
     def out_of_size(self):
         if self.thrgh_walls is False:
@@ -50,6 +85,7 @@ class snake_logics:
         if self.apple == self.body[-1]:
             self.apple = None
             self.body.insert(0, self.body[0])
+            self.speed -= (self.acceleration / 100) * self.speed
 
     def move(self):
         del self.body[0]
@@ -67,6 +103,8 @@ class snake_logics:
         self.eat_apple()
         self.out_of_size()
         self.collision()
+
+        pygame.time.set_timer(self.move_event, int(self.speed))
 
     def add_apple(self):
         if not self.apple:
