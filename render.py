@@ -1,7 +1,7 @@
 import pygame
 
 
-class board:
+class Board:
     def __init__(self, size_board=(8, 8), size_cell=100):
         self.size_cell = size_cell
         self.radius = size_cell // 2
