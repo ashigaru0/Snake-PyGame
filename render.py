@@ -1,7 +1,9 @@
 import pygame
 
+from apple import SpritesClassic
 
-class Board:  # просто поменяла маленькую на заглавную букву, змейка, пока что у меня побудет на доработке
+
+class Board:
     def __init__(self, size_board=(8, 8), size_cell=100):
         self.size_cell = size_cell
         self.radius = size_cell // 2
@@ -24,16 +26,21 @@ class Board:  # просто поменяла маленькую на загла
                 self.board[cell[1]][cell[0]] = 1
 
     def render(self):
-        self.screen.fill((0, 0, 0))
+        image = pygame.image.load('backgrounds_img/background1_game.png')
+        image_rect = image.get_rect()
+        image = pygame.transform.scale(image, (int(self.size_screen[0] if self.size_screen[0] > 1000 else 1000),
+                                               int(self.size_screen[1] if self.size_screen[1] > 1000 else 1000)))
+        self.screen.blit(image, (0, 0))
         for h, data in enumerate(self.board):
             for w, color in enumerate(data):
                 x, y = w * self.size_cell + self.radius, \
                        h * self.size_cell + self.radius
 
-                if color == 1:
+                if color == 1:  # тело змейки
                     pygame.draw.circle(self.screen, (255, 255, 255), (x, y), self.radius)
-                elif color == 2:
-                    pygame.draw.circle(self.screen, (0, 255, 0), (x, y), self.radius)
-                elif color == 3:
-                    pygame.draw.circle(self.screen, (255, 0, 0), (x, y), self.radius)
+                elif color == 2:  # голова змейки
+                    pygame.draw.circle(self.screen, (0, 0, 255), (x, y), self.radius)
+                    # self.screen.blit(Sprites(self.radius)., (x - self.radius, y - self.radius))
+                elif color == 3:  # яблоко (голубика)
+                    self.screen.blit(SpritesClassic(self.radius).changed_image(), (x - self.radius, y - self.radius))
         pygame.display.flip()
