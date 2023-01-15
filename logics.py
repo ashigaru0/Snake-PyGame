@@ -88,6 +88,10 @@ class SnakeLogics:
             for cell in self.body[:-2:]:
                 if self.body[-1] == cell:
                     self.run = False
+                    # возвращение в главное меню
+                    pygame.display.set_caption('Главное меню')
+                    self.size_screen = 500, 500
+                    self.screen = pygame.display.set_mode(self.size_screen)
 
     def eat_apple(self):
         if self.apple == self.body[-1]:
