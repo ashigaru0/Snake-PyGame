@@ -37,10 +37,9 @@ class Board:
                        h * self.size_cell + self.radius
 
                 if color == 1:  # тело змейки
-                    pygame.draw.circle(self.screen, (255, 255, 255), (x, y), self.radius)
+                    self.screen.blit(SpritesClassic(self.radius).snakes_parts_b(), (x - self.radius, y - self.radius))
                 elif color == 2:  # голова змейки
-                    pygame.draw.circle(self.screen, (0, 0, 255), (x, y), self.radius)
-                    # self.screen.blit(Sprites(self.radius)., (x - self.radius, y - self.radius))
+                    self.screen.blit(SpritesClassic(self.radius).snakes_parts_h(), (x - self.radius, y - self.radius))
                 elif color == 3:  # яблоко (голубика)
                     self.screen.blit(SpritesClassic(self.radius).changed_image(), (x - self.radius, y - self.radius))
         pygame.display.flip()
