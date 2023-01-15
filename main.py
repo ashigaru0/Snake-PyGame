@@ -9,7 +9,7 @@ from settings_window import Settings
 
 class MainMenu:
     def __init__(self):
-        self.menu_text = ['Начать игру', 'Правила', 'Настройки', 'Выход']
+        self.menu_text = ['Начать игру', 'Правила', 'Настройки', 'Выход', 'Рекорд:', 0]
         self.text_index = 0
 
         pygame.display.set_caption('Главное меню')
@@ -26,12 +26,15 @@ class MainMenu:
         elif self.text_index == 1:
             Rules().running()
         elif self.text_index == 2:
-            pass  # Settings()
+            Settings().running()
         else:
             pygame.quit()
             sys.exit()
 
     def render(self):
+        with open('record.txt', mode='r') as rec:
+            self.menu_text[-1] = rec.read()
+
         image = pygame.image.load('backgrounds_img/background_menu.png')
         fon = pygame.transform.scale(image, (500, 500))
         self.screen.blit(fon, (0, 0))  # фон

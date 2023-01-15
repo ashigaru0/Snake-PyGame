@@ -5,6 +5,7 @@ class Defeat:
     def __init__(self, text, count):
         self.text = ['Вы проиграли...', '', f'Причина: {text}', '', f'Ваш результат: {count}']
 
+        self.count = count
         pygame.display.set_caption('Поражение')
         self.size_screen = 500, 500
         self.screen = pygame.display.set_mode(self.size_screen)
@@ -32,6 +33,13 @@ class Defeat:
         pygame.display.flip()
 
     def running(self):
+        with open('record.txt', mode='r') as record_f:
+            record = int(record_f.read())
+        if record < self.count:
+            with open('record.txt', mode='w') as record_f:
+                print(1)
+                record_f.write(str(self.count))
+
         running = True
         while running:
             for event in pygame.event.get():

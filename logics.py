@@ -7,7 +7,7 @@ from victory import Victory  # пока что не добавлен (нужно
 
 class SnakeLogics:
     def __init__(self, size=(8, 8), thrgh_walls=False, thrgh_self=False,
-                 speed=500.0, acceleration=0, control_relatively_head=1):
+                 speed=500.0, acceleration=0, control_relatively_head=False):
         self.size_screen = None
         self.screen = None
 
@@ -26,6 +26,7 @@ class SnakeLogics:
         self.apple = None
         self.direction = 0  # 0 - DOWN; 1 - RIGHT; 2 - UP; 3 - LEFT
         self.old_direction = 0
+        self.count = 0
 
         self.move_event = pygame.USEREVENT + 1  # Ивент движения
         self.add_apple_event = pygame.USEREVENT + 2  # Ивент создания яблока
@@ -78,7 +79,7 @@ class SnakeLogics:
                         (cell[1] >= self.size[1] or cell[1] < 0)):
                     self.run = False
                     # поражение
-                    defeat = Defeat('врезались в стену', 'count')  # результат/кол-во очков
+                    defeat = Defeat('врезались в стену', self.count)  # результат/кол-во очков
                     defeat.running()
 
         else:
@@ -91,7 +92,7 @@ class SnakeLogics:
                 if self.body[-1] == cell:
                     self.run = False
                     # поражение
-                    defeat = Defeat('врезались в себя', 'count')
+                    defeat = Defeat('врезались в себя', self.count)
                     defeat.running()
 
     def eat_apple(self):
@@ -99,6 +100,13 @@ class SnakeLogics:
             self.apple = None
             self.body.insert(0, self.body[0])
             self.speed -= (self.acceleration / 100) * self.speed
+            self.count += 10
+
+    def victory(self):
+        if len(self.body) == self.size[0] * self.size[1]:
+            self.run = False
+            vc = Victory('Поздравляю!', self.count)
+            vc.running()
 
     def move(self):
         del self.body[0]
@@ -113,6 +121,7 @@ class SnakeLogics:
 
         self.old_direction = self.direction
 
+        self.victory()
         self.eat_apple()
         self.out_of_size()
         self.collision()
