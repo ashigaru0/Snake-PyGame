@@ -1,13 +1,15 @@
 import pygame
 import random
 
+from defeat import Defeat
+
 
 class SnakeLogics:
     def __init__(self, size=(8, 8), thrgh_walls=False, thrgh_self=False,
                  speed=500.0, acceleration=0, control_relatively_head=1):
         self.size_screen = None
         self.screen = None
-        
+
         self.run = True
         self.size = size
 
@@ -74,10 +76,9 @@ class SnakeLogics:
                 if ((cell[0] >= self.size[0] or cell[0] < 0) or
                         (cell[1] >= self.size[1] or cell[1] < 0)):
                     self.run = False
-                    # возвращение в главное меню
-                    pygame.display.set_caption('Главное меню')
-                    self.size_screen = 500, 500
-                    self.screen = pygame.display.set_mode(self.size_screen)
+                    # поражение
+                    defeat = Defeat('Врезались в стену')
+                    defeat.running()
 
         else:
             for num, cell in enumerate(self.body):
@@ -88,10 +89,9 @@ class SnakeLogics:
             for cell in self.body[:-2:]:
                 if self.body[-1] == cell:
                     self.run = False
-                    # возвращение в главное меню
-                    pygame.display.set_caption('Главное меню')
-                    self.size_screen = 500, 500
-                    self.screen = pygame.display.set_mode(self.size_screen)
+                    # поражение
+                    defeat = Defeat('Врезались в себя')
+                    defeat.running()
 
     def eat_apple(self):
         if self.apple == self.body[-1]:
@@ -135,10 +135,9 @@ class SnakeLogics:
                 pass
         elif event.type == pygame.QUIT:
             self.run = False
-            # возвращение в главное меню
-            pygame.display.set_caption('Главное меню')
-            self.size_screen = 500, 500
-            self.screen = pygame.display.set_mode(self.size_screen)
+            # поражение: выход из игры - можно переделать просто в выход в главное меню
+            defeat = Defeat('')
+            defeat.running()
         elif event.type == self.move_event:
             self.move()
         elif event.type == self.add_apple_event:
