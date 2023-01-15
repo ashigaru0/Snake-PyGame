@@ -11,7 +11,6 @@ class Defeat:
 
     def render(self):
         font = pygame.font.Font(None, 40)
-        font_enter = pygame.font.Font(None, 20)
         self.screen.fill((0, 0, 0))
         text_coord = 20
         for i, line in enumerate(self.text):
@@ -23,6 +22,7 @@ class Defeat:
             text_coord += text_rect.height
             self.screen.blit(string_rendered, text_rect)
         # текст - выход с помощью Enter
+        font_enter = pygame.font.Font(None, 20)
         text_rendered = font_enter.render('Нажмите Enter для выхода', True, pygame.Color('white'))
         text_rect = text_rendered.get_rect()
         text_width, text_height = font_enter.size('Нажмите Enter для выхода')
