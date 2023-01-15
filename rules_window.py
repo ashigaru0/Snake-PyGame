@@ -3,14 +3,13 @@ import pygame
 
 class Rules:
     def __init__(self):
-        self.rules_text = ['Правила', 'игры']  # правила и управление - недописано
+        self.rules_text = ['Правила', 'игры'] # правила и управление - недописано
 
+        pygame.display.set_caption('Правила')
         self.size_screen = 500, 500
         self.screen = pygame.display.set_mode(self.size_screen)
-        pygame.display.set_caption('Правила')
 
     def render(self):
-        self.screen.fill((0, 0, 0))
         font = pygame.font.Font(None, 30)
         self.screen.fill((0, 0, 0))
         text_coord = 500 // 2 - 80
