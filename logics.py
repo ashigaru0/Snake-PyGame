@@ -2,6 +2,7 @@ import pygame
 import random
 
 from defeat import Defeat
+from victory import Victory  # пока что не добавлен (нужно добавить, при победе)
 
 
 class SnakeLogics:
@@ -77,7 +78,7 @@ class SnakeLogics:
                         (cell[1] >= self.size[1] or cell[1] < 0)):
                     self.run = False
                     # поражение
-                    defeat = Defeat('Врезались в стену')
+                    defeat = Defeat('врезались в стену', 'count')  # результат/кол-во очков
                     defeat.running()
 
         else:
@@ -90,7 +91,7 @@ class SnakeLogics:
                 if self.body[-1] == cell:
                     self.run = False
                     # поражение
-                    defeat = Defeat('Врезались в себя')
+                    defeat = Defeat('врезались в себя', 'count')
                     defeat.running()
 
     def eat_apple(self):
@@ -135,9 +136,10 @@ class SnakeLogics:
                 pass
         elif event.type == pygame.QUIT:
             self.run = False
-            # поражение: выход из игры - можно переделать просто в выход в главное меню
-            defeat = Defeat('')
-            defeat.running()
+            # возвращение в главное меню
+            pygame.display.set_caption('Главное меню')
+            self.size_screen = 500, 500
+            self.screen = pygame.display.set_mode(self.size_screen)
         elif event.type == self.move_event:
             self.move()
         elif event.type == self.add_apple_event:
