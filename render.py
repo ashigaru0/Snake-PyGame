@@ -38,6 +38,6 @@ class Board:
                     self.screen.blit(SpritesClassic(self.size_cell).snakes_parts_b(), (x, y))
                 elif color == 2:  # голова змейки
                     self.screen.blit(SpritesClassic(self.size_cell).snakes_parts_h(), (x, y))
-                elif color == 3:  # голубика
+                elif color == 3:  # голубика (apple или blueberry - зависит от класса)
                     self.screen.blit(SpritesClassic(self.size_cell).changed_image(), (x, y))
         pygame.display.flip()
