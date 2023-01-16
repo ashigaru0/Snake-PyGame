@@ -12,7 +12,9 @@ class Defeat:
 
     def render(self):
         font = pygame.font.Font(None, 40)
-        self.screen.fill((0, 0, 0))
+        image = pygame.image.load('backgrounds_img/background_defeat.png')
+        fon = pygame.transform.scale(image, (500, 500))
+        self.screen.blit(fon, (0, 0))  # фон
         text_coord = 20
         for i, line in enumerate(self.text):
             string_rendered = font.render(line, True, pygame.Color('white'))
