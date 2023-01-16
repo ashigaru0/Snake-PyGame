@@ -6,7 +6,7 @@ class Victory:
         self.text = ['Вы выиграли!', text, f'Ваш результат: {count}']
 
         self.size_screen = 500, 500
-        self.screen = pygame.display.seimport pygame
+        self.screen = pygame.display.set_mode(self.size_screen)
 
 
 class Victory:
@@ -51,7 +51,7 @@ class Victory:
                     if event.key == pygame.K_RETURN:
                         running = False
                         pygame.display.set_caption('Главное меню')
-            self.render()t_mode(self.size_screen)
+            self.render()
         pygame.display.set_caption('Победа')
 
     def render(self):
@@ -74,16 +74,3 @@ class Victory:
         text_rect.x, text_rect.y = 490 - text_width, 490 - text_height
         self.screen.blit(text_rendered, text_rect)
         pygame.display.flip()
-
-    def running(self):
-        running = True
-        while running:
-            for event in pygame.event.get():
-                if event.type == pygame.QUIT:
-                    running = False
-                    pygame.display.set_caption('Главное меню')
-                elif event.type == pygame.KEYDOWN:
-                    if event.key == pygame.K_RETURN:
-                        running = False
-                        pygame.display.set_caption('Главное меню')
-            self.render()

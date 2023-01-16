@@ -1,5 +1,4 @@
 import pygame
-
 import sys
 
 from rules_window import Rules
