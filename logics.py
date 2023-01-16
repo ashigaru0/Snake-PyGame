@@ -57,24 +57,24 @@ class SnakeLogics:
 
     def change_direction_relatively(self, key):
         if self.direction == 0:
-            if key == pygame.K_d:
+            if key in self.control['d']:
                 self.direction = 3
-            elif key == pygame.K_a:
+            elif key in self.control['a']:
                 self.direction = 1
         elif self.direction == 1:
-            if key == pygame.K_d:
+            if key in self.control['d']:
                 self.direction = 0
-            elif key == pygame.K_a:
+            elif key in self.control['a']:
                 self.direction = 2
         elif self.direction == 2:
-            if key == pygame.K_d:
+            if key in self.control['d']:
                 self.direction = 1
-            elif key == pygame.K_a:
+            elif key in self.control['a']:
                 self.direction = 3
         elif self.direction == 3:
-            if key == pygame.K_d:
+            if key in self.control['d']:
                 self.direction = 2
-            elif key == pygame.K_a:
+            elif key in self.control['a']:
                 self.direction = 0
 
     def out_of_size(self):

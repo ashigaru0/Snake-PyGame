@@ -51,6 +51,7 @@ class Settings:
                     pygame.display.set_caption('Настройки')
                 elif event.type == pygame.KEYDOWN:
                     if event.key == pygame.K_ESCAPE:
+                        self.save_settings()
                         running = False
                         pygame.display.set_caption('Главное меню')
                 for line in self.rules_text[1::]:
