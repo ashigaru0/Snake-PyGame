@@ -32,9 +32,9 @@ class Rules:
             self.screen.blit(string_rendered, text_rect)
         # текст - выход с помощью Enter
         font_enter = pygame.font.Font(None, 20)
-        text_rendered = font_enter.render('Нажмите Enter, чтобы вернуться', True, pygame.Color('white'))
+        text_rendered = font_enter.render('Нажмите Enter или Esc, чтобы вернуться', True, pygame.Color('white'))
         text_rect = text_rendered.get_rect()
-        text_width, text_height = font_enter.size('Нажмите Enter, чтобы вернуться')
+        text_width, text_height = font_enter.size('Нажмите Enter или Esc, чтобы вернуться')
         text_rect.x, text_rect.y = 490 - text_width, 490 - text_height
         self.screen.blit(text_rendered, text_rect)
         pygame.display.flip()
@@ -47,7 +47,7 @@ class Rules:
                     running = False
                     pygame.display.set_caption('Главное меню')
                 elif event.type == pygame.KEYDOWN:
-                    if event.key == pygame.K_RETURN:
+                    if event.key in (pygame.K_RETURN, pygame.K_ESCAPE):
                         running = False
                         pygame.display.set_caption('Главное меню')
             self.render()

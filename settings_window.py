@@ -39,6 +39,12 @@ class Settings:
                                (255, 255, 255))
             self.screen.blit(text, line[2])
             line[3].render_checkbox()
+        font_enter = pygame.font.Font(None, 20)
+        text_rendered = font_enter.render('Нажмите Enter или Esc, чтобы вернуться', True, pygame.Color('white'))
+        text_rect = text_rendered.get_rect()
+        text_width, text_height = font_enter.size('Нажмите Enter или Esc, чтобы вернуться')
+        text_rect.x, text_rect.y = 490 - text_width, 490 - text_height
+        self.screen.blit(text_rendered, text_rect)
         pygame.display.flip()
 
     def running(self):
@@ -50,7 +56,7 @@ class Settings:
                     running = False
                     pygame.display.set_caption('Настройки')
                 elif event.type == pygame.KEYDOWN:
-                    if event.key == pygame.K_ESCAPE:
+                    if event.key in (pygame.K_ESCAPE, pygame.K_RETURN):
                         self.save_settings()
                         running = False
                         pygame.display.set_caption('Главное меню')
