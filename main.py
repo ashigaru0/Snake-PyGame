@@ -65,9 +65,9 @@ if __name__ == '__main__':
             if event.type == pygame.QUIT:
                 running = False
             elif event.type == pygame.KEYDOWN:
-                if event.key == pygame.K_w:
+                if event.key in (pygame.K_w, pygame.K_UP):
                     main_menu.check_menu_text(-1)  # выбор опции, наверх
-                elif event.key == pygame.K_s:
+                elif event.key in (pygame.K_s, pygame.K_DOWN):
                     main_menu.check_menu_text(1)  # выбор опции, вниз
                 elif event.key == pygame.K_RETURN:
                     main_menu.open_windows()  # переход

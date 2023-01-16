@@ -30,4 +30,8 @@ class Rules:
                 if event.type == pygame.QUIT:
                     running = False
                     pygame.display.set_caption('Главное меню')
+                elif event.type == pygame.KEYDOWN:
+                    if event.key == pygame.K_ESCAPE:
+                        running = False
+                        pygame.display.set_caption('Главное меню')
             self.render()

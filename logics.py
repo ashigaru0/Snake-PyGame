@@ -8,6 +8,11 @@ from victory import Victory  # пока что не добавлен (нужно
 class SnakeLogics:
     def __init__(self, size=(8, 8), thrgh_walls=False, thrgh_self=False,
                  speed=500.0, acceleration=0, control_relatively_head=False):
+        self.control = {'w': (pygame.K_w, pygame.K_UP),
+                        'a': (pygame.K_a, pygame.K_LEFT),
+                        's': (pygame.K_s, pygame.K_DOWN),
+                        'd': (pygame.K_d, pygame.K_RIGHT)}
+
         self.size_screen = None
         self.screen = None
 
@@ -41,13 +46,13 @@ class SnakeLogics:
             self.change_direction_relatively(key)
 
     def change_direction_global(self, key):
-        if key == pygame.K_s and self.old_direction != 2:
+        if key in self.control['s'] and self.old_direction != 2:
             self.direction = 0
-        elif key == pygame.K_d and self.old_direction != 3:
+        elif key in self.control['d'] and self.old_direction != 3:
             self.direction = 1
-        elif key == pygame.K_w and self.old_direction != 0:
+        elif key in self.control['w'] and self.old_direction != 0:
             self.direction = 2
-        elif key == pygame.K_a and self.old_direction != 1:
+        elif key in self.control['a'] and self.old_direction != 1:
             self.direction = 3
 
     def change_direction_relatively(self, key):
@@ -139,10 +144,14 @@ class SnakeLogics:
 
     def key_indexing(self, event):
         if event.type == pygame.KEYDOWN:
-            if event.key in [pygame.K_w, pygame.K_a, pygame.K_s, pygame.K_d]:
+            if event.key in [pygame.K_w, pygame.K_a, pygame.K_s, pygame.K_d,
+                             pygame.K_UP, pygame.K_LEFT, pygame.K_DOWN, pygame.K_RIGHT]:
                 self.change_direction(event.key)
-            else:
-                pass
+            elif event.key == pygame.K_ESCAPE:
+                self.run = False
+                pygame.display.set_caption('Главное меню')
+                self.size_screen = 500, 500
+                self.screen = pygame.display.set_mode(self.size_screen)
         elif event.type == pygame.QUIT:
             self.run = False
             # возвращение в главное меню
