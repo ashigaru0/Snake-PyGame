@@ -8,6 +8,7 @@ class Checkbox:
                  outline_color=(0, 0, 0),
                  check_color=(0, 0, 0), font_size=22, font_color=(0, 0, 0),
                  text_offset=(28, 1), font='Ariel Black'):
+        self.click = None
         self.surface = surface
         self.x = x
         self.y = y
